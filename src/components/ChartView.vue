@@ -6,11 +6,11 @@
           <h3>Conversiones por Campaña</h3>
         </div>
         <div class="chart-btn">
-          <a-button type="primary" @click="showModal">
-            {{ chartData.length > 1 ? "Añadir campaña" : "Crear gráfico" }}
-          </a-button>
           <a-button @click="cleanChart">
             Limpiar
+          </a-button>
+          <a-button type="primary" @click="showModal">
+            {{ chartData.length > 1 ? "Añadir campaña" : "Crear gráfico" }}
           </a-button>
         </div>
       </div>
@@ -59,6 +59,9 @@
             />
           </a-form-item>
           <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
+            <a-button @click="clearForm()">
+              Limpiar
+            </a-button>
             <a-button type="primary" html-type="submit">
               Añadir
             </a-button>
@@ -73,8 +76,6 @@
           :options="chartOptions"
         />
       </div>
-
-      
     </div>
   </div>
 </template>
@@ -104,6 +105,9 @@ export default {
     cleanChart() {
       this.chartData = [["Task", "Hours per Day"]];
     },
+    clearForm() {
+      this.form.resetFields();
+    },
     handleOk(e) {
       console.log(e);
       this.visible = false;
@@ -111,11 +115,9 @@ export default {
     handleSubmit(e) {
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log("Received values of form: ", values);
           this.chartData.push([values.bell, Number(values.conversion)]);
-          values.bell = " ";
-          console.log(values);
         }
+        this.form.resetFields();
       });
       e.preventDefault();
     },
@@ -153,7 +155,6 @@ export default {
   border-radius: 5px;
   width: 100%;
   background-color: white;
-  
 }
 .chart-header {
   display: flex;
