@@ -6,11 +6,11 @@
           <h3>Conversiones por Campaña</h3>
         </div>
         <div class="chart-btn">
-          <a-button @click="cleanChart">
-            Limpiar
+          <a-button @click="showClearModal">
+            Borrar
           </a-button>
           <a-button type="primary" @click="showModal">
-            {{ chartData.length > 1 ? "Añadir campaña" : "Crear gráfico" }}
+            {{ chartData.length > 1 ? "Añadir Campaña" : "Crear Gráfico" }}
           </a-button>
         </div>
       </div>
@@ -68,7 +68,16 @@
           </a-form-item>
         </a-form>
       </a-modal>
-      <div>
+      <a-modal
+      title="Borrar Gráfico"
+      :visible="visibleCancelModal"
+      :confirm-loading="confirmLoading"
+      @ok="handleClearOk"
+      @cancel="handleCancel"
+    >
+      <p>{{ ModalText }}</p>
+    </a-modal>
+      <div class="chart-area">
         <GChart
           class="chart"
           type="PieChart"
@@ -96,9 +105,28 @@ export default {
       visible: false,
       formLayout: "horizontal",
       form: this.$form.createForm(this, { name: "coordinated" }),
+      ModalText: '¿Estás seguro de que quieres borrar el gráfico?',
+      visibleCancelModal: false,
+      confirmLoading: false,
     };
   },
   methods: {
+    showClearModal() {
+      this.visibleCancelModal = true;
+    },
+    handleClearOk() {
+      this.ModalText = 'Gráfico borrado';
+      this.cleanChart()
+      this.confirmLoading = true;
+      setTimeout(() => {
+        this.visibleCancelModal = false;
+        this.confirmLoading = false;
+      }, 2000);
+    },
+    handleCancel() {
+      console.log('Clicked cancel button');
+      this.visibleCancelModal = false;
+    },
     showModal() {
       this.visible = true;
     },
@@ -144,7 +172,7 @@ export default {
   border-radius: 5px;
   box-shadow: 0 5px 5px rgb(157, 163, 162);
   width: 90%;
-  height: 400px;
+  height: 420px;
   margin: 0;
   padding: 10px;
   background-color: rgb(233, 234, 235);
@@ -175,8 +203,14 @@ h3 {
 .ant-btn {
   margin-left: 5px;
 }
+.chart-area {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
 .chart {
-  min-height: 260px;
+  height: 90%;
   width: 90%;
 }
 </style>
