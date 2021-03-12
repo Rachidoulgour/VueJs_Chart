@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <ChartView msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ChartView from './components/ChartView.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ChartView
   }
 }
 </script>
@@ -24,5 +24,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

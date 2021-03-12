@@ -74,9 +74,7 @@
         />
       </div>
 
-      <!-- <div :v-if="chartData.length=0">
-      No hay datos
-    </div> -->
+      
     </div>
   </div>
 </template>
@@ -140,13 +138,22 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-.chart-section {
-  height: 350px;
-  border: solid 1px rgb(121, 121, 121);
+  border: solid 1px rgb(233, 234, 235);
   border-radius: 5px;
   box-shadow: 0 5px 5px rgb(157, 163, 162);
   width: 90%;
+  height: 400px;
+  margin: 0;
+  padding: 10px;
+  background-color: rgb(233, 234, 235);
+}
+.chart-section {
+  height: 100%;
+  border: solid 1px rgb(233, 234, 235);
+  border-radius: 5px;
+  width: 100%;
+  background-color: white;
+  
 }
 .chart-header {
   display: flex;
@@ -154,7 +161,9 @@ export default {
   justify-content: space-between;
 }
 h3 {
-  margin: 5px;
+  margin: 5px 10px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.65);
 }
 .chart-btn {
   display: flex;
